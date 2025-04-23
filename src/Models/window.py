@@ -14,8 +14,9 @@ class Window:
         self.font_button= pygame.font.Font(None, 36)
         self.back=pygame.image.load("6292.jpg")
         self.back = pygame.transform.scale(self.back, (self.width, self.height))
-        self.btnPlay = pygame.Rect(350, 250, 100, 50)
-        self.btnExit = pygame.Rect(350, 350, 100, 50)
+        self.btnPlay = pygame.Rect(350, 200, 100, 50)
+        self.btnMultiplayer = pygame.Rect(325, 300, 150, 50)
+        self.btnExit = pygame.Rect(350, 400, 100, 50)
         
         
         
@@ -30,15 +31,19 @@ class Window:
         
         pygame.draw.rect(self.window, (255, 0, 0), self.btnPlay)
         pygame.draw.rect(self.window, (255, 0, 0), self.btnExit)
+        pygame.draw.rect(self.window, (255, 0, 0), self.btnMultiplayer)
         
         play_text = self.font_button.render('Play', True, (255, 255, 255))
         exit_text = self.font_button.render('Exit', True, (255, 255, 255))
+        multi_text = self.font_button.render('Multiplayer', True, (255, 255, 255))
         
         play_rect = play_text.get_rect(center=self.btnPlay.center)
         exit_rect = exit_text.get_rect(center=self.btnExit.center)
+        multi_rect = multi_text.get_rect(center=self.btnMultiplayer.center)
         
         self.window.blit(play_text, play_rect)
         self.window.blit(exit_text, exit_rect)
+        self.window.blit(multi_text, multi_rect)
         
     def renderSurface(self, surface):
         self.window.blit(surface, (0, 0))

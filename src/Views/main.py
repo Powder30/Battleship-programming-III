@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 import pygame
 from src.Models.window import Window
 from src.Models.gameSurface import GameSurface
-
+from src.Models.multiplayerSurface import MultiplayerSurface
 def game():
     pygame.init()
 
@@ -13,6 +13,7 @@ def game():
 
     surfacePlayer1 = GameSurface('Choose the position of your ships player 1', 800, 600, (119, 255, 148))
     surfacePlayer2 = GameSurface('Choose the position of your ships player 2', 800, 600, (255, 163, 175))
+    MultiplayerSurface1= MultiplayerSurface('Make a choise', 800, 600, (16, 16, 173))
 
     execute = True
     current_surface = None
@@ -27,16 +28,29 @@ def game():
         for event in events:
             if event.type == pygame.QUIT:
                 execute = False
+            if  event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                     game()
+                     continue     
+                
 
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_pos = pygame.mouse.get_pos()
+                #Verificar si se hizo clic en el boton del multijugador
+                
+                    
+                    
                 
                 # Revisar si se hizo clic en el botón home
                 if home_btn.collidepoint(mouse_pos):
                     game()
                     continue
                 
+              
                 if current_surface is None:
+                    if window.btnMultiplayer.collidepoint(mouse_pos):
+                     current_surface = MultiplayerSurface1
+                     current_surface.draw()
+                     window.renderSurface(current_surface.surface)
                     
                     if window.btnPlay.collidepoint(mouse_pos):
                         current_surface = surfacePlayer1
@@ -49,6 +63,8 @@ def game():
                 else:
                     action = current_surface.handle_click(mouse_pos)
                     
+                         
+                        
                     if action == "continue":
                         if current_surface == surfacePlayer1:
                             if current_surface.setup_player("Player 1"):
