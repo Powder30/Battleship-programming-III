@@ -5,7 +5,7 @@ from connection import Conexion
 def main():
     
     # Cambiar modo_servidor a False, ya que el cliente se conecta al servidor
-    red = Conexion(modo_servidor=False, ip = "244.178.44.111", puerto=5500)  # Cambia esta IP a la del servidor
+    red = Conexion(modo_servidor=False, ip = "192.168.1.101", puerto=5500)  # Cambia esta IP a la del servidor
 
     while True:
         # Enviar un mensaje al servidor

@@ -93,7 +93,7 @@ class MultiplayerSurface:
         title = self.font_tittle.render("Hosting menu", True, (255, 255, 255))
         self.surface.blit(title, (self.width // 2 - title.get_width() // 2, 50))
         hostData = Conexion.get_local_ip()
-        hostText = self.font.render(f'User ip: {hostData}  puerto:5555', True, (255, 255, 255))
+        hostText = self.font.render(f'User ip: {hostData}  puerto:5500', True, (255, 255, 255))
         self.surface.blit(hostText, (self.width // 2 - hostText.get_width() // 2, 100))
         conexion_Text = self.font.render("Waiting for players...", True, (255, 255, 255))
         self.surface.blit(conexion_Text, (self.width // 2 - conexion_Text.get_width() // 2, 400))
@@ -180,4 +180,4 @@ class MultiplayerSurface:
           
             
         return None
-    
+     
