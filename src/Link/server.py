@@ -1,8 +1,10 @@
 from connection import Conexion
 
+
 def main():
+    
     # Cambiar modo_servidor a True, ya que el servidor espera conexiones
-    red = Conexion(modo_servidor=True, ip="127.0.0.1", puerto=5500)  # Cambia esta IP a la del servidor
+    red = Conexion(modo_servidor=True, ip = Conexion.get_local_ip(), puerto=5500)  # Cambia esta IP a la del servidor
     
     while True:
         # Recibimos los datos del cliente

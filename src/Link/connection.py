@@ -2,9 +2,9 @@ import socket
 import json
 
 class Conexion:
-    def __init__(self, modo_servidor: bool, ip: str = "0.0.0.0", puerto: int = 5000):
+    def __init__(self, modo_servidor: bool, ip: str = "0.0.0.0", puerto: int = 5500):
         self.modo_servidor = modo_servidor
-        self.ip = ip
+        self.ip = ip 
         self.puerto = puerto
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.canal = None
@@ -16,6 +16,7 @@ class Conexion:
 
     def _iniciar_como_servidor(self):
         try:
+            ip = self.get_local_ip()
             self.sock.bind((self.ip, self.puerto))
             self.sock.listen(1)
             print(f"[SERVIDOR] Esperando conexión en {self.ip}:{self.puerto}...")
@@ -25,7 +26,16 @@ class Conexion:
             raise ConnectionError(
                 f"[ERROR SERVIDOR] No se pudo iniciar el servidor: {error}"
             )
-
+    def get_local_ip():
+     try:
+        # Crea un socket temporal para conectarse a un servidor externo
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))  # Google DNS
+        local_ip = s.getsockname()[0]
+        s.close()
+        return local_ip
+     except Exception:
+        return "127.0.0.1"  # Fallback a localhost
     def _iniciar_como_cliente(self):
         try:
             self.sock.connect((self.ip, self.puerto))
