@@ -46,10 +46,13 @@ class Conexion:
         return "127.0.0.1"  
     def _iniciar_como_cliente(self):
         try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.connect((self.ip, self.puerto))
             self.canal = self.sock
             print(f"[CLIENTE] Conectado al servidor en {self.ip}:{self.puerto}")
         except Exception as error:
+            if self.sock:
+               self.sock.close()
             raise ConnectionError(
                 f"[ERROR CLIENTE] No se pudo conectar al servidor: {error}"
             )
