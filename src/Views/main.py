@@ -9,6 +9,7 @@ pygame.mixer.init()
 pygame.mixer.music.load("src/Sounds/Battle.mp3") 
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.5)
+MultiplayerSurface1= MultiplayerSurface('Make a choise', 800, 600, (16, 16, 173))
 def game():
     pygame.init()
     
@@ -19,7 +20,7 @@ def game():
 
     surfacePlayer1 = GameSurface('Choose the position of your ships player 1', 800, 600, (119, 255, 148))
     surfacePlayer2 = GameSurface('Choose the position of your ships player 2', 800, 600, (255, 163, 175))
-    MultiplayerSurface1= MultiplayerSurface('Make a choise', 800, 600, (16, 16, 173))
+    global MultiplayerSurface1
 
     execute = True
     current_surface = None

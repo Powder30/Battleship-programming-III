@@ -92,7 +92,7 @@ class MultiplayerSurface:
         self.surface.blit(self.backSur, (0, 0))
         title = self.font_tittle.render("Hosting menu", True, (255, 255, 255))
         self.surface.blit(title, (self.width // 2 - title.get_width() // 2, 50))
-        hostData = Conexion.get_local_ip()
+        hostData = self.hosting_ip
         hostText = self.font.render(f'User ip: {hostData}  puerto:5500', True, (255, 255, 255))
         self.surface.blit(hostText, (self.width // 2 - hostText.get_width() // 2, 100))
         conexion_Text = self.font.render("Waiting for players...", True, (255, 255, 255))
@@ -149,6 +149,7 @@ class MultiplayerSurface:
         if self.state == "host":
             if hasattr(self, 'btnHost') and self.btnHost.collidepoint(mouse_pos):
                 self.state = "hosting"
+                self.hosting_ip = Conexion.get_local_ip()
                 self.draw_hosting()
                 # Crea y configura la conexión como servidor
                 def start_server():
