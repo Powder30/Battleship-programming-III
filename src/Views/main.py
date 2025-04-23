@@ -5,8 +5,13 @@ import pygame
 from src.Models.window import Window
 from src.Models.gameSurface import GameSurface
 from src.Models.multiplayerSurface import MultiplayerSurface
+pygame.mixer.init()
+ pygame.mixer.music.load("src\Sounds\Battle.mp3")
+ pygame.mixer.music.play(-1)
 def game():
     pygame.init()
+    
+   
 
     window = Window(800, 600, 'BATTLESHIP')
     window.drawBtns()
@@ -24,6 +29,7 @@ def game():
     home_btn = pygame.Rect(720, 20, 60, 40)
 
     while execute:
+       
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
