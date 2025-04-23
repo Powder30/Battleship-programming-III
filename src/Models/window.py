@@ -17,7 +17,8 @@ class Window:
         self.btnPlay = pygame.Rect(350, 200, 100, 50)
         self.btnMultiplayer = pygame.Rect(325, 300, 150, 50)
         self.btnExit = pygame.Rect(350, 400, 100, 50)
-        
+        self.btnPause = pygame.Rect(10, 500, 90, 25)
+        self.musicText = "Pause"
         
         
     def drawBtns(self):
@@ -32,10 +33,14 @@ class Window:
         pygame.draw.rect(self.window, (255, 0, 0), self.btnPlay)
         pygame.draw.rect(self.window, (255, 0, 0), self.btnExit)
         pygame.draw.rect(self.window, (255, 0, 0), self.btnMultiplayer)
+        pygame.draw.rect(self.window, (255, 0, 0), self.btnPause)
         
         play_text = self.font_button.render('Play', True, (255, 255, 255))
         exit_text = self.font_button.render('Exit', True, (255, 255, 255))
         multi_text = self.font_button.render('Multiplayer', True, (255, 255, 255))
+        btn_pause = self.font_button.render(self.musicText, True, (255, 255, 255))
+        
+        self.window.blit(btn_pause, self.btnPause)
         
         play_rect = play_text.get_rect(center=self.btnPlay.center)
         exit_rect = exit_text.get_rect(center=self.btnExit.center)

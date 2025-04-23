@@ -6,8 +6,9 @@ from src.Models.window import Window
 from src.Models.gameSurface import GameSurface
 from src.Models.multiplayerSurface import MultiplayerSurface
 pygame.mixer.init()
- pygame.mixer.music.load("src\Sounds\Battle.mp3")
- pygame.mixer.music.play(-1)
+pygame.mixer.music.load("src\Sounds\Battle.mp3") 
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.5)
 def game():
     pygame.init()
     
@@ -34,6 +35,15 @@ def game():
         for event in events:
             if event.type == pygame.QUIT:
                 execute = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                    if window.btnPause.collidepoint(mouse_pos):
+                    
+                      if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.pause()
+                            window.musicText = "Play"
+                      else: 
+                            pygame.mixer.music.unpause() 
+                            window.musicText = "Pause"   
             if  event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                      game()
                      continue     
@@ -50,7 +60,9 @@ def game():
                 if home_btn.collidepoint(mouse_pos):
                     game()
                     continue
-                
+            
+                                  
+                            
               
                 if current_surface is None:
                     if window.btnMultiplayer.collidepoint(mouse_pos):

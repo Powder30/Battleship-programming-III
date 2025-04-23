@@ -2,8 +2,9 @@ import socket
 import json
 import threading
 
+
 class Conexion:
-    def __init__(self, modo_servidor: bool, ip: str = "0.0.0.0", puerto: int = 5500):
+    def __init__(self, modo_servidor: bool, ip: str = "0.0.0.0", puerto: int = 5555):
         self.modo_servidor = modo_servidor
         self.ip = ip 
         self.puerto = puerto
