@@ -21,7 +21,7 @@ class MultiplayerSurface:
         self.server_thread = None
         self.font = pygame.font.Font(None, 24)
         self.ip = Conexion.get_local_ip()  
-        self.puerto = 5555  
+        self.puerto = 5500  
         self.sock = None
         self.input_text = ""
         self.input_active = False
@@ -130,7 +130,7 @@ class MultiplayerSurface:
                              self.conexion = Conexion(
                             modo_servidor=False,
                             ip=self.input_text,
-                            puerto=5555 )
+                            puerto=5500 )
                              print("¡Conectado al servidor!")
                         except Exception as e:
                               print(f"Error de conexión: {e}")
@@ -151,24 +151,21 @@ class MultiplayerSurface:
                 self.state = "hosting"
                 self.draw_hosting()
                 # Crea y configura la conexión como servidor
-                try:
-                    self.conexion = Conexion(modo_servidor=True, ip=self.ip, puerto=self.puerto)
-                
+                def start_server():
+                    try:
+                        self.conexion = Conexion(modo_servidor=True, ip=self.ip, puerto=self.puerto)
+                        
+                        print("Servidor inicializado y esperando conexión en hilo separado.")
+                    except Exception as e:
+                        print(f"Error al iniciar servidor en hilo: {e}")
+                        self.state = "host"  # Vuelve al estado anterior en caso de error
+
                 # Inicia el servidor en un hilo separado para no bloquear la UI
-                    self.server_thread = threading.Thread(
-                    target=self.conexion._iniciar_como_servidor,
-                    daemon=True
-                   )
-                    self.server_thread.start()
+                self.server_thread = threading.Thread(target=start_server, daemon=True)
+                self.server_thread.start()
+
+                return "hosting"
                 
-                    return "hosting"
-                except Exception as e:
-                   print(f"Error al iniciar servidor: {e}")
-                   self.state = "host"  # Vuelve al estado anterior
-                   return None
-        
-           
-    
             elif hasattr(self, 'buttonJoin') and self.buttonJoin.collidepoint(mouse_pos):
                  self.state = "join"
                  self.state = "join"

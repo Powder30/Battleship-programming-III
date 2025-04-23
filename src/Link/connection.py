@@ -4,15 +4,16 @@ import threading
 
 
 class Conexion:
-    def __init__(self, modo_servidor: True, ip: str = "0.0.0.0", puerto: int = 5500):
+    def __init__(self, modo_servidor: bool, ip: str = "0.0.0.0", puerto: int = 5500):
         self.modo_servidor = modo_servidor
         self.ip = ip 
         self.puerto = puerto
         self.sock = None  
         self.canal = None
         self.connection_event = threading.Event()  
-        
-        if not modo_servidor:
+        if modo_servidor:
+            self._iniciar_como_servidor()    
+        else:  
             self._iniciar_como_cliente()
 
     def _iniciar_como_servidor(self):
@@ -20,6 +21,7 @@ class Conexion:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             self.sock.bind((self.ip, self.puerto))
+            print(f"[SERVIDOR] Escuchando en IP: {self.ip}  Puerto: {self.puerto}")
             self.sock.listen(1)
             print(f"[SERVIDOR] Esperando conexión en {self.ip}:{self.puerto}...")
             
